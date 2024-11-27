@@ -2,7 +2,7 @@
   "name": "Genshin Code Checker",
   "homepage": "https://mimizaya.github.io/genshin-code-checker",
   "private": false,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

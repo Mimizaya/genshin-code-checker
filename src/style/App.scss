@@ -1,0 +1,461 @@
+// COLORS
+// ——————————————————————————————
+// Greens 
+  $background-color-green: #2c4334;
+  $foreground-color-green: #75e5b0;
+
+  $green-gradient-start: lighten($foreground-color-green, 3%);
+  $green-gradient-end: darken($green-gradient-start, 31%);
+  $green-gradient: linear-gradient(180deg, $green-gradient-start 0%, $green-gradient-end 100%);
+
+  $green-gradient-hightlight-start: lighten($foreground-color-green, 35%);
+  $green-gradient-hightlight-end: darken($green-gradient-hightlight-start, 44%);
+  $green-gradient-highlight: linear-gradient(180deg, $green-gradient-hightlight-start 0%, $green-gradient-hightlight-end 100%);
+// Yellows 
+  $background-color-yellow: #3f3831;
+  $foreground-color-yellow: #e1ad70;
+
+  $yellow-gradient-start: lighten($foreground-color-yellow, 10%);
+  $yellow-gradient-end: darken($yellow-gradient-start, 20%);
+  $yellow-gradient: linear-gradient(180deg, $yellow-gradient-start 0%, $yellow-gradient-end 100%);
+
+  $yellow-gradient-hightlight-start: lighten($foreground-color-yellow, 33%);
+  $yellow-gradient-hightlight-end: darken($yellow-gradient-hightlight-start, 30%);
+  $yellow-gradient-highlight: linear-gradient(180deg, $yellow-gradient-hightlight-start 0%, $yellow-gradient-hightlight-end 100%);
+// Reds 
+  $background-color-red: #3b1f22;
+  $foreground-color-red: #e2a4ab;
+
+  $red-gradient-start: lighten($foreground-color-red, 3%);
+  $red-gradient-end: darken($red-gradient-start, 25%);
+  $red-gradient: linear-gradient(180deg, $red-gradient-start 0%, $red-gradient-end 100%);
+
+  $red-gradient-hightlight-start: lighten($foreground-color-red, 23%);
+  $red-gradient-hightlight-end: darken($red-gradient-hightlight-start, 31%);
+  $red-gradient-highlight: linear-gradient(180deg, $red-gradient-hightlight-start 0%, $red-gradient-hightlight-end 100%);
+
+:root {
+  font-family: monospace;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scaleY(1.0) scaleX(1.0) translateY(0px);
+  }
+  60% {
+    transform: scaleY(1.2) scaleX(0.9) translateY(-15px);
+  }
+  100% {
+    transform: scaleY(1.0) scaleX(1.0) translateY(0px);
+  }
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  font-size: 1.1em;
+  background-image: url('/pile.png'), url('/liben.png'), url('/mondstadt.png');
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: 71vh, auto, cover;
+  background-position: bottom 60px left -90px, bottom 90px right -45px, top 0 left 0;
+}
+
+button, textarea {
+  font-family: inherit;
+}
+
+button {
+  height: 40px;
+  background-color: #45225D;
+  color: #DDD;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+button:hover {
+  background-color: lighten(#45225D, 5%);
+}
+
+textarea {
+  padding: 7px;
+  background-color: #F9F9F9;
+  border: none;
+  border: 3px solid #F9F9F9;
+  font-size: 1em;
+  line-height: 17px;
+}
+textarea:focus {
+  outline: none;
+  border: 3px solid lighten(#45225D, 20%);
+}
+
+header {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  justify-content: center;
+
+  h1 {
+    color: #E3C574;
+    padding-top: 6px;
+
+    img {
+      width: 690px;
+    }
+  }
+}
+
+main {
+  padding-top: 100px;
+  position: relative;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 230px));
+  grid-template-rows: repeat(4, minmax(0, calc(30vh - 25px)));
+  gap: 20px;
+
+  // General for all sections
+  div#input-codes, 
+  div#known-codes,
+  div#parsed-codes {
+    display: flex;
+    flex-direction: column;
+    background-color: #202020;
+
+    h3 {
+      padding: 9px 10px 10px 10px;
+      background-color: #191919;
+      height: 40px;
+    }
+    ul {
+      overflow-y: scroll;
+      scrollbar-width: thin;
+    }
+  }
+
+  // User input section 
+  div#input-codes {
+    grid-column: span 3;
+    grid-row: span 2;
+
+    h3 {
+      position: relative;
+
+      button.clear-input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 40px;
+        width: 40px;
+        font-size: 1.1em;
+        padding-bottom: 1px;
+      }
+    }
+
+    textarea#input-codes-textarea {
+      height: 100%;
+      resize: none;
+    }
+  }
+  
+  // List of known codes 
+  div#known-codes {
+    grid-column: span 1;
+    grid-row: span 3;
+    position: relative;
+
+    h3 {
+      position: relative;
+
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 40px;
+        width: 40px;
+
+        img {
+          margin-top: 3px;
+          height: 50%;
+        }
+      }
+    }
+
+    ul {
+      padding: 10px;
+    }
+  }
+  
+  // Parsed list from user input 
+  div#parsed-codes {
+    position: relative;
+    grid-column: span 3;
+    grid-row: span 1;
+   // border-bottom: 10px solid #000;
+
+    div#parsed-codes-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1;
+      width: 100%;
+
+      h3 {
+        grid-row: 1;
+      }
+    }
+
+    // Seperate results into grid
+    div#code-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+      height: calc(100% - 40px);
+
+      ul:last-of-type {
+        border: none;
+      }
+      ul { 
+        grid-column: span 1;
+        grid-row: span 1;
+        overflow-x: hidden;
+        border-right: 2px solid #191919;
+
+        li {
+          display: flex;
+          cursor: pointer;
+          height: 25px;
+          width: calc(100% - 35px);
+          align-items: center;
+
+          button.change-status {
+            background: none;
+            height: 25px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            border-bottom: 1px solid #191919;
+
+            span.circle-outer {
+              border-radius: 100%;
+              height: 14px;
+              width: 14px;
+              margin-right: 5px;
+              margin-left: 5px;
+              overflow: hidden;
+
+              span.circle-inner {
+                display: block;
+                position: relative;
+                top: -8px;
+                border-radius: 100%;
+                height: 14px;
+                width: 14px;
+              }
+            }
+            p {
+              padding-top: 5px;
+              height: 25px;
+              padding-left: 5px;
+              border-left: 1px solid #191919;
+            }
+          }
+
+          a {
+            height: 25px;
+            text-decoration: none;
+            padding-left: 5px;
+            padding-right: 15px;
+            border-bottom: 1px solid #191919;
+
+            img {
+              height: 25px;
+              width: 25px;
+            }
+          }
+        }
+
+        // COLORS
+        // New - GREEN
+        li.new, li.new a {
+          background-color: $background-color-green;
+
+          button.new {
+            span.circle-outer.new {
+              background: $green-gradient;
+
+              span.circle-inner {
+                background: $green-gradient-highlight;
+              }
+            }
+            p {
+              color: $foreground-color-green;
+            }
+          }
+        }
+
+        // Partial - YELLOW
+        li.partial, li.partial a {
+          background-color: $background-color-yellow;
+
+          button.partial {
+            span.circle-outer.partial {
+              background: $yellow-gradient;
+
+              span.circle-inner {
+                background: $yellow-gradient-highlight;
+              }
+            }
+            p {
+              color: $foreground-color-yellow;
+            }
+          }
+        }
+
+        // Discard - RED
+        li.discard, li.discard a {
+          background-color: $background-color-red;
+
+          button.discard {
+            span.circle-outer.discard {
+              background: $red-gradient;
+
+              span.circle-inner {
+                background: $red-gradient-highlight;
+              }
+            }
+            p {
+              color: $foreground-color-red;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Import / Export data
+  div#import-export-data {
+    position: fixed;
+    bottom: 28px;
+    right: 45px;
+    display: flex;
+    gap: 10px;
+
+
+    button.data-button {
+      background: none;
+      display: flex;
+      flex-direction: column-reverse;
+
+      img {
+        height: 120px;
+        //width: 120px;
+        padding-bottom: 5px;
+      }
+      p {
+        height: 40px;
+        background-color: #45225D;
+        align-content: center;
+        flex-shrink: 0;
+      }
+    }
+    button.delete {
+      p {
+        background-color: #661515;
+      }
+    }
+    button.data-button:hover {
+      img {
+        animation-name: 'bounce';
+        animation-duration: 0.85s;
+        animation-iteration-count: infinite;
+      }
+    }
+  }
+
+  // Buttons to do things with the codes
+  div#new-codes-buttons {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: -157px;
+    bottom: 0px;
+
+    div#paimon-images {
+      width: 100%;
+
+      img {
+        //-webkit-filter: drop-shadow(0px 0px 5px #222);
+        filter: drop-shadow(0px 0px 5px #333);
+        margin-left: 20px;
+        width: 100px;
+        height: 100px;
+      }
+    }
+    button {
+      flex-grow: 1;
+    }
+    button:last-of-type {
+      //margin-left: 10px;
+      margin-top: 6px;
+    }
+  }
+}
+
+div.bottom-edge {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 7px;
+  background-color: #191919;
+}
+div#links {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+
+  a.yoimiya {
+    margin-top: 2px;
+
+    img:hover {
+      transform: rotateZ(-15deg);
+      height: 120px;
+    }
+  }
+  a.nahida {
+    img:hover {
+      transform: rotateZ(20deg);
+      height: 120px;
+    }
+  }
+  a {
+    img {
+      transition: all 0.3s ease;
+      height: 100px;
+    }
+  }
+}
