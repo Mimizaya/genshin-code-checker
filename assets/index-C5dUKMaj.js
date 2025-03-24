@@ -47,7 +47,7 @@ ${T}`),M===D.length-1&&e==="Genshin Impact"&&(U+=`
 
 Also feel free check out our new webtool for artifacts and builds!
 You can find it at 🔥crimsonwitch.com🔥
-https://www.crimsonwitch.com/`),U}).join(`
+https://www.crimsonwitch.com/ref=hoyolab`),U}).join(`
 
 `);_?navigator.clipboard.writeText(_).then(()=>{alert("Links copied to clipboard!")}).catch(O=>{console.error("Failed to copy: ",O)}):alert("No new codes to generate links for.")},F=()=>{const T="If you haven't used them yet, these codes are also still active:",D=p.split(/\s+/).filter(O=>O!==""),_=D.map((O,M)=>{let U=`${O}
 ${n}${O}`;return M===0&&D.length>1&&(U+=`
